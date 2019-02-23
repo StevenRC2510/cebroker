@@ -2,10 +2,21 @@ import React, { Component } from 'react';
 import CourseCard from './components/CourseCard';
 import FilterContainer from './components/FilterContainer';
 import SearchContainer from './components/SearchContainer';
+import { Services } from './services';
 import './App.css';
 import { filterData } from './data';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+  }
+  async componentDidMount() {
+    await Services.getFeaturedCourses()
+    await Services.getCourses()
+  }
+
   render() {
     return (
       <div>
