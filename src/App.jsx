@@ -10,24 +10,51 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      coursesList: [],
+      courseName: ''
     }
   }
+
   async componentDidMount() {
-    await Services.getFeaturedCourses()
-    await Services.getCourses()
+    await this.getCourses();
+  }
+
+  handleChange = async (event) => {
+    if (event.key == 'Enter') {
+      const { target: { name, value } } = event
+      this.setState({ [name]: value })
+      const { courses } = await Services.getCoursesByName(this.state.courseName);
+      await this.setState({ coursesList: courses })
+    }
+  }
+
+  async getCourses() {
+    let { featuredCourses } = await Services.getFeaturedCourses();
+    featuredCourses = featuredCourses.map(featuredCourse => featuredCourse.coursePublication)
+    let { courses } = await Services.getCourses();
+    this.setState({ coursesList: [...featuredCourses, ...courses] })
   }
 
   render() {
     return (
       <div>
-        <SearchContainer />
+        <SearchContainer handleChange={this.handleChange} name={'courseName'} />
         <div className="container">
           <div className="row">
             <div className="col-4">
               <FilterContainer data={filterData} />
             </div>
             <div className="col-8">
-              <CourseCard />
+              {this.state.coursesList.length > 1 && (this.state.coursesList.map((course, index) =>
+                <CourseCard
+                  name={course.course.name}
+                  price={course.price ? course.price : '0'}
+                  method={course.course.deliveryMethod ? course.course.deliveryMethod.description : 'ONCOURSE LEARNING'}
+                  provider={course.course.provider.name}
+                  featuredBanner={course.course.featuredBanner}
+                  hours={course.totalHours}
+                />
+              ))}
             </div>
           </div>
         </div>
