@@ -11,10 +11,12 @@ select {
     margin-left:10px;
 }
 
-form{
-    width:500px;
-    margin:0 auto;
+.findCe {
+    color: white !important;
+    font-size: 1.2em
+
 }
+
 .search { 
     padding:6px 15px 6px 30px;
     margin:3px; 
@@ -25,11 +27,12 @@ form{
     border : 0px
 }
 
-.optionButton{
-    color: white;
+.nav-link{
+    color: #8fadcc;
 }
 
-.optionButton:hover,
-.optionButton:focus{
+.nav-link:hover,
+.nav-link:focus{
+    color:white;
     border-bottom: 4px solid #15c37e !important;
 }

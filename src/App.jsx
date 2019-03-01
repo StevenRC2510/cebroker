@@ -58,16 +58,15 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.error)
     return (
       <div>
         <SearchContainer handleChange={this.handleChange} name={'courseName'} />
         <div className="container">
           <div className="row">
-            <div className="col-4">
+            <div className="col-12 col-lg-4">
               <FilterContainer data={filterData} />
             </div>
-            <div className="col-8">
+            <div className="col-12 col-lg-8">
               <p>{`Page ${this.state.activePage} of ${this.state.totalCourses} Results`}</p>
               <Pagination
                 currentPage={this.state.activePage}
