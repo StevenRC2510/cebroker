@@ -5,37 +5,59 @@ import SearchContainer from './components/SearchContainer';
 import { Services } from './services';
 import './App.css';
 import { filterData } from './data';
+import Pagination from "react-js-pagination";
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       coursesList: [],
-      courseName: ''
+      courseName: '',
+      activePage: 1,
+      totalCourses: 0,
+      error: false,
+      message: '',
+      featuredCourses: []
     }
   }
 
   async componentDidMount() {
+    await this.getFeaturedCourses();
+    await this.getCourses();
+  }
+
+  handlePageChange = async (pageNumber) => {
+    await this.setState({ activePage: pageNumber });
     await this.getCourses();
   }
 
   handleChange = async (event) => {
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       const { target: { name, value } } = event
-      this.setState({ [name]: value })
-      const { courses } = await Services.getCoursesByName(this.state.courseName);
-      await this.setState({ coursesList: courses })
+      await this.setState({ [name]: value, activePage: 1, totalCourses: 0 })
+      await this.getCourses()
     }
   }
 
-  async getCourses() {
-    let { featuredCourses } = await Services.getFeaturedCourses();
+  getFeaturedCourses = async () => {
+    let { featuredCourses, error, message } = await Services.getFeaturedCourses();
     featuredCourses = featuredCourses.map(featuredCourse => featuredCourse.coursePublication)
-    let { courses } = await Services.getCourses();
-    this.setState({ coursesList: [...featuredCourses, ...courses] })
+    this.setState({ featuredCourses, error, message })
+  }
+
+  getCourses = async () => {
+    const { activePage, totalCourses, featuredCourses } = this.state;
+    let { courses, totalItems, error, message } = await Services.getCourses(this.state.activePage, this.state.courseName);
+    this.setState({
+      coursesList: (activePage === 1 && !this.state.courseName) ? [...featuredCourses, ...courses] : courses,
+      totalCourses: totalCourses === 0 ? totalItems : totalCourses,
+      error,
+      message
+    })
   }
 
   render() {
+    console.log(this.state.error)
     return (
       <div>
         <SearchContainer handleChange={this.handleChange} name={'courseName'} />
@@ -45,6 +67,14 @@ class App extends Component {
               <FilterContainer data={filterData} />
             </div>
             <div className="col-8">
+              <p>{`Page ${this.state.activePage} of ${this.state.totalCourses} Results`}</p>
+              <Pagination
+                activePage={this.state.activePage}
+                itemsCountPerPage={18}
+                totalItemsCount={this.state.totalCourses}
+                pageRangeDisplayed={5}
+                onChange={this.handlePageChange}
+              />
               {this.state.coursesList.length > 1 && (this.state.coursesList.map((course, index) =>
                 <CourseCard
                   name={course.course.name}
@@ -57,6 +87,8 @@ class App extends Component {
               ))}
             </div>
           </div>
+        </div>
+        <div>
         </div>
       </div>
     );

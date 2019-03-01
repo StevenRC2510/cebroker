@@ -1,52 +1,41 @@
 import axios from 'axios';
-const apiUrl = ' https://api.cebroker.com/v2/';
+const apiUrl = 'https://api.cebroker.com/v2/';
 
 
 export const Services = {
-
-
     getFeaturedCourses: async () => {
         try {
             const { data } = await axios.create().get(`${apiUrl}featuredCoursesProfession?profession=36`)
             return {
                 featuredCourses: data,
+                message: 'Success',
                 error: false
             }
         } catch (error) {
-            console.log(error)
             return {
-                message: 'Problemas Para Acceder a los cursos',
+                featuredCourses: [],
+                message: 'Problems accessing the courses',
                 error
             }
         }
     },
 
-    getCourses: async () => {
+    getCourses: async (page, courseName) => {
+        const keyword = courseName ? courseName : '';
         try {
-            const { data } = await axios.create().get(`${apiUrl}search/courses/?expand=totalItems&pageIndex=1&pageSize=18&sortField=RELEVANCE&profession=36&courseType=CD_ANYTIME&sortShufflingSeed=27`)
+            const { data } = await axios.create().get(`${apiUrl}search/courses/?expand=totalItems&pageIndex=${page}&pageSize=18&sortField=RELEVANCE&profession=36&courseType=CD_ANYTIME&sortShufflingSeed=27&courseName=${keyword}`)
             return {
+                message: 'Success',
                 courses: data.items,
+                totalItems: data.totalItems,
                 error: false
             }
         } catch (error) {
-            console.log(error)
             return {
-                message: 'Problemas Para acceder a los cursos',
+                message: 'Problems accessing the courses',
+                courses: [],
+                totalItems: 0,
                 error
-            }
-        }
-    },
-    getCoursesByName: async (courseName) => {
-        try {
-            const { data } = await axios.create().get(`${apiUrl}search/courses/?expand=totalItems&pageIndex=1&pageSize=18&sortField=RELEVANCE&profession=36&courseType=CD_ANYTIME&sortShufflingSeed=27&courseName=${courseName}`)
-            return {
-                courses: data.items,
-                error: false
-            }
-        } catch (error) {
-            return {
-                message: 'No hay resultados que coincidan con su búsqueda',
-                error,
             }
         }
     }
