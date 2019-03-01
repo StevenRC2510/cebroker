@@ -5,7 +5,8 @@ import SearchContainer from './components/SearchContainer';
 import { Services } from './services';
 import './App.css';
 import { filterData } from './data';
-import Pagination from "react-js-pagination";
+import Pagination from "react-pagination-library";
+import "react-pagination-library/build/css/index.css"; //for css
 
 class App extends Component {
   constructor(props) {
@@ -69,11 +70,10 @@ class App extends Component {
             <div className="col-8">
               <p>{`Page ${this.state.activePage} of ${this.state.totalCourses} Results`}</p>
               <Pagination
-                activePage={this.state.activePage}
-                itemsCountPerPage={18}
-                totalItemsCount={this.state.totalCourses}
-                pageRangeDisplayed={5}
-                onChange={this.handlePageChange}
+                currentPage={this.state.activePage}
+                totalPages={(Math.round(this.state.totalCourses / 18)) - 1}
+                changeCurrentPage={this.handlePageChange}
+                theme="bottom-border"
               />
               {this.state.coursesList.length > 1 && (this.state.coursesList.map((course, index) =>
                 <CourseCard
