@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
 
-const SearchContainer = () => {
+const SearchContainer = ({ name, handleChange }) => {
   return (
     <div className="bg-container">
       <div className="d-flex align-items-center justify-content-center p-3">
@@ -14,16 +14,16 @@ const SearchContainer = () => {
           <option value="Medical Doctor">{'Medical Doctor'}</option>
         </select>
       </div>
-      <form className=" d-flex justify-content-center my-3">
+      <div className=" d-flex justify-content-center my-3">
         <div className="input-group">
           <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon1">
+            <span className="input-group-text">
               <i className="fas fa-search"></i>
             </span>
           </div>
-          <input type="text" className="form-control" placeholder={'Search courses and providers'} aria-label="Username" aria-describedby="basic-addon1" />
+          <input type="text" onKeyPress={handleChange} className="form-control" placeholder={'Search courses and providers'} name={name} />
         </div>
-      </form>
+      </div>
       <div class="btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
         <label class="btn active optionButton">
           <input type="radio" name="options" id="option1" checked />{'COURSES'}
@@ -36,4 +36,9 @@ const SearchContainer = () => {
   )
 }
 
+SearchContainer.propTypes = {
+  name: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired
+
+}
 export default SearchContainer;
