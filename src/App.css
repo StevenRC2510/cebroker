@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+
+.infoContainer{
+  background-color : white !important;
+}
+
+.mainContainer{
+  background-color: #f7fbfc
+}
