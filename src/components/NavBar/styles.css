@@ -1,0 +1,18 @@
+
+
+.btn-outline-secondary{
+    border-radius: 0 !important
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus{
+    border-color: #15c37e !important;
+    background-color: #15c37e !important;
+    color: white;
+}
+
+.navOption:hover,
+.navOption:focus{
+color: #15c37e !important;
+border: 0px !important
+}

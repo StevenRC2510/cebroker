@@ -6,7 +6,7 @@ import './styles.css';
 
 const CourseCard = ({ name, price, provider, hours, method, featuredBanner, }) => {
     return (
-        <div className="card py-2 mb-2">
+        <div className="card py-2 mb-2 mt-1">
             <div className="card-body row">
                 {featuredBanner && <div className="col-12 col-md-4">
                     <img src={`https://storage.cebroker.com/CEBroker/${featuredBanner}`} className="img-fluid courseImage" alt="Responsive image" />

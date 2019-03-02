@@ -3,6 +3,7 @@ import CourseCard from './components/CourseCard';
 import FilterContainer from './components/FilterContainer';
 import SearchContainer from './components/SearchContainer';
 import CoursesContainer from './components/CoursesContainer';
+import NavBar from './components/NavBar';
 import { Services } from './services';
 import './App.css';
 import { filterData } from './data';
@@ -61,9 +62,10 @@ class App extends Component {
   render() {
     return (
       <div className="mainContainer">
+        <NavBar />
         <SearchContainer handleChange={this.handleChange} name={'courseName'} />
         <div className="container">
-          <div className="row">
+          <div className="row mt-5">
             <div className="col-12 col-lg-4">
               <FilterContainer data={filterData} />
             </div>
@@ -80,8 +82,6 @@ class App extends Component {
               }
             </div>
           </div>
-        </div>
-        <div>
         </div>
       </div>
     );

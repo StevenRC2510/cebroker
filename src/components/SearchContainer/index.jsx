@@ -5,7 +5,7 @@ import './styles.css';
 
 const SearchContainer = ({ name, handleChange }) => {
   return (
-    <div className="bg-container">
+    <div className="bg-container mt-5 pt-3">
       <div className="row d-flex flex-column flex-md-row align-items-center justify-content-center p-3 findCe">
         <p className="">{'Find CE for a'}</p>
         <SearchSelect data={['Florida']}/>
