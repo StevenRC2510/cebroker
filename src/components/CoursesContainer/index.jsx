@@ -31,6 +31,5 @@ const CoursesContainer = ({ courses, children }) => {
 
 CoursesContainer.propTypes = {
     courses: PropTypes.array,
-
 }
 export default CoursesContainer;
