@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CourseCard from './components/CourseCard';
 import FilterContainer from './components/FilterContainer';
 import SearchContainer from './components/SearchContainer';
+import CoursesContainer from './components/CoursesContainer';
 import { Services } from './services';
 import './App.css';
 import { filterData } from './data';
@@ -59,31 +60,24 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="mainContainer">
         <SearchContainer handleChange={this.handleChange} name={'courseName'} />
         <div className="container">
           <div className="row">
             <div className="col-12 col-lg-4">
               <FilterContainer data={filterData} />
             </div>
-            <div className="col-12 col-lg-8">
-              <p>{`Page ${this.state.activePage} of ${this.state.totalCourses} Results`}</p>
+            <div className="col-12 col-lg-8 infoContainer">
               <Pagination
                 currentPage={this.state.activePage}
                 totalPages={(Math.round(this.state.totalCourses / 18)) - 1}
                 changeCurrentPage={this.handlePageChange}
                 theme="bottom-border"
               />
-              {this.state.coursesList.length > 1 && (this.state.coursesList.map((course, index) =>
-                <CourseCard
-                  name={course.course.name}
-                  price={course.price ? course.price : '0'}
-                  method={course.course.deliveryMethod ? course.course.deliveryMethod.description : 'ONCOURSE LEARNING'}
-                  provider={course.course.provider.name}
-                  featuredBanner={course.course.featuredBanner}
-                  hours={course.totalHours}
-                />
-              ))}
+              {this.state.coursesList.length > 1 && <CoursesContainer courses={this.state.coursesList}>
+                <p>{`Page ${this.state.activePage} of ${this.state.totalCourses} Results`}</p>
+              </CoursesContainer>
+              }
             </div>
           </div>
         </div>

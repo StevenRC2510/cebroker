@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import SearchSelect from '../SearchSelect';
 import './styles.css';
 
 const SearchContainer = ({ name, handleChange }) => {
@@ -7,12 +8,8 @@ const SearchContainer = ({ name, handleChange }) => {
     <div className="bg-container">
       <div className="row d-flex flex-column flex-md-row align-items-center justify-content-center p-3 findCe">
         <p className="">{'Find CE for a'}</p>
-        <select className="">
-          <option value="Florida">{'Florida'}</option>
-        </select>
-        <select className="">
-          <option value="Medical Doctor">{'Medical Doctor'}</option>
-        </select>
+        <SearchSelect data={['Florida']}/>
+        <SearchSelect data={['Medical Doctor']}/>
       </div>
       <div className=" d-flex justify-content-center my-3">
         <div className="input-group w-50">

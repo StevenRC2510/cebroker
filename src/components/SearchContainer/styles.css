@@ -2,15 +2,6 @@
     background-color: #195796;
 }
 
-select {
-    background-color: #195796;
-    color: white;
-    padding: 10px 3px 10px;
-    border-radius: 4%;
-    border: 1px solid white;
-    margin-left:10px;
-}
-
 .findCe {
     color: white !important;
     font-size: 1.2em

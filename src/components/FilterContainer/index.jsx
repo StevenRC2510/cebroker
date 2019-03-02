@@ -4,10 +4,10 @@ import FilterCard from '../FilterCard';
 
 const FilterContainer = ({ data }) => {
     return (
-        <div>
+        <div className="infoContainer">
             <div className="card">
                 <div className="card-body">
-                    <i class="fas fa-caret-down"></i>
+                    <i className="fas fa-caret-down"></i>
                     <b>{'FILTER COURSE RESULTS'}</b>
                 </div>
             </div>
